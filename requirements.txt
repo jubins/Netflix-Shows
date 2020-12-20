@@ -1,0 +1,4 @@
+fastapi==0.62.0
+Flask-SQLAlchemy==2.4.4
+databases==0.4.1
+psycopg2-binary==2.8.6
