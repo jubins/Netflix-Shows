@@ -2,6 +2,12 @@
 #### Welcome to the Shows API. Search, sort and filter your favorite Movies and TV Shows. Go to /docs to see full list of available endpoints.
 
 ## Setup
+
+#### [Dependencies]((https://github.com/jubins/Netflix-Shows/blob/master/netflix-shows/requirements.txt)
+- Python 3
+- Docker/Docker-Compose (Optional)
+- All the python dependencies are listed in `requirements.txt`.
+
 #### Docker: Setting up the server
 1. If you have docker/docker-compose installed and running this setup is recommended, otherwise follow non-dockerized setup.
 2. From your terminal go to main project directory i.e. the Netflix-Shows project directory that contains the `docker-compose.yml` file.
