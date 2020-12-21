@@ -1,1 +1,1 @@
-web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker netflix-shows/main:app
+web: uvicorn netflix-shows.main:app
