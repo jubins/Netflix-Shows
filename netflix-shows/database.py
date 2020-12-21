@@ -3,7 +3,7 @@ from databases import Database
 from configparser import ConfigParser
 
 config = ConfigParser()
-config.read('config.ini')
+config.read('./config.ini')
 
 DB_USER = config['database'].get('user')
 DB_PASSWORD = config['database'].get('password')
