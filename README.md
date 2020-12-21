@@ -3,7 +3,7 @@
 
 ## Setup
 
-#### [Dependencies]((https://github.com/jubins/Netflix-Shows/blob/master/netflix-shows/requirements.txt)
+#### [Dependencies](https://github.com/jubins/Netflix-Shows/blob/master/netflix-shows/requirements.txt)
 - Python 3
 - Docker/Docker-Compose (Optional)
 - All the python dependencies are listed in `requirements.txt`.
