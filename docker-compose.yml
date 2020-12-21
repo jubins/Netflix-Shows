@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  shows-service:
+    build: ./netflix-shows
+    volumes:
+      - ./netflix-shows:/usr/src/app
+    ports:
+      - 9001:9001
