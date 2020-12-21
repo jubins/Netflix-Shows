@@ -18,7 +18,7 @@
     $ source/venv/bin/active
     ```
 3. If you are on Windows or need more help with virtual environments follow this [link.](https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments)
-4. From your terminal go `~/Netflix-Shows/netflix-shows` directory, you should be in the directory that contains `requirements.txt`.
+4. From your terminal go `~/Netflix-Shows/netflix-shows` directory, you should be in the directory that contains [`requirements.txt`](https://github.com/jubins/Netflix-Shows/blob/master/netflix-shows/requirements.txt).
 5. Install all the requirements using below command and make sure your virtual environment is active.
     ```shell script
     $ pip install requirements.txt
@@ -36,8 +36,8 @@
 ## API Documentation
 - Go to `http://localhost:9001/docs` to view full list of endpoints.
 
-## Tests
-To run the test cases go to `Netflix-Shows/netflix-shows` in a different terminal window and type below command. Make sure your Fast API server is running.
+## [Tests](https://github.com/jubins/Netflix-Shows/blob/master/netflix-shows/unittests.py)
+To run the test cases go to `~/Netflix-Shows/netflix-shows` from your terminal window and type below command. Make sure your Fast API server is running.
    ```
     $ python unittests.py 
    ```
