@@ -51,3 +51,10 @@ If you get `requests` module import error make sure you install it using below c
    ```
     $ pip3 install requests==2.25.1
    ```
+
+### Contact
+- Jubin Soni
+- jubinsoni27@gmail.com
+
+### API 
+![](https://github.com/jubins/Netflix-Shows/blob/master/img/api-endpoinds.png)
