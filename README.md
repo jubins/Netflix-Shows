@@ -1,9 +1,9 @@
-# Shows API
-#### Welcome to the Shows API. Search, sort and filter your favorite Movies and TV Shows. Go to /docs to see full list of available endpoints.
+# [Shows API](https://netflix-shows-api.herokuapp.com/)
+#### Welcome to the Shows API. Search, sort and filter your favorite Movies and TV Shows. Go to https://netflix-shows-api.herokuapp.com/docs/docs to see full list of available endpoints.
 
 ## Setup
 
-#### [Dependencies](https://github.com/jubins/Netflix-Shows/blob/master/netflix-shows/requirements.txt)
+#### [Dependencies](https://github.com/jubins/Netflix-Shows/blob/master/requirements.txt)
 - Python 3
 - Docker/Docker-Compose (Optional)
 - All the python dependencies are listed in `requirements.txt`.
@@ -24,7 +24,7 @@
     $ source/venv/bin/active
     ```
 3. If you are on Windows or need more help with virtual environments follow this [link.](https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments)
-4. From your terminal go `~/Netflix-Shows/netflix-shows` directory, you should be in the directory that contains [`requirements.txt`](https://github.com/jubins/Netflix-Shows/blob/master/netflix-shows/requirements.txt).
+4. From your terminal go `~/Netflix-Shows/` directory, you should be in the directory that contains [`requirements.txt`](https://github.com/jubins/Netflix-Shows/blob/master/requirements.txt).
 5. Install all the requirements using below command and make sure your virtual environment is active.
     ```shell script
     $ pip install requirements.txt
@@ -36,10 +36,10 @@
 7. Go to your browser and copy-paste `http://localhost:9001`. If you see a welcome message then you've successfully setup the server and ready to start using the API.
 
 #### Database setup
-1. Once your API server is setup start your Postgresql server.
-2. Go to `~/Netflix-Shows/netflix-shows` and run `python backfill.py` to import all the data into the database.
+1. These are setups to setup database locally. Comment the Heroku DB variables in [`database.py`](https://github.com/jubins/Netflix-Shows/blob/master/netflix-shows/database.py) and uncomment local DB variables. Once your API server is setup start your Postgresql server.
+2. Go to `~/Netflix-Shows/netflix-shows` and run `python backfill.py` to import all the data into your database.
  
-## API Documentation
+## [API Documentation](https://netflix-shows-api.herokuapp.com/docs)
 - Go to `http://localhost:9001/docs` to view full list of endpoints.
 
 ## [Tests](https://github.com/jubins/Netflix-Shows/blob/master/netflix-shows/unittests.py)
@@ -57,4 +57,4 @@ If you get `requests` module import error make sure you install it using below c
 - jubinsoni27@gmail.com
 
 ### API 
-![](https://github.com/jubins/Netflix-Shows/blob/master/img/api-endpoinds.png)
+![](https://github.com/jubins/Netflix-Shows/blob/master/netflix-shows/img/api-endpoinds.png)
