@@ -3,13 +3,19 @@ from databases import Database
 import os
 
 # DB_USER = os.environ.get('LOCAL_DB_USER')
-# DB_PASSWORD = os.environ.get('LOCAL_DB_PASWORD')
+# DB_PASSWORD = os.environ.get('LOCAL_DB_PASSWORD')
 # DB_HOST = os.environ.get('LOCAL_DB_HOST')
 # DB_PORT = os.environ.get('LOCAL_DB_PORT')
 # DB_NAME = os.environ.get('LOCAL_DB_NAME')
-# DATABASE_URL = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
-DATABASE_URL = os.environ.get('HEROKU_DB_URL', 'postgres://tvxqfktinnbxqi:b07bb0d3847a702cece9a383f089bbc02e772eb9141a2efebcdf37f74ee77d86@ec2-54-160-133-106.compute-1.amazonaws.com:5432/d1pqoftidlm2sg')
+DB_USER = os.environ.get('HEROKU_DB_USER', 'tvxqfktinnbxqi')
+DB_PASSWORD = os.environ.get('HEROKU_DB_PASSWORD', 'b07bb0d3847a702cece9a383f089bbc02e772eb9141a2efebcdf37f74ee77d86')
+DB_HOST = os.environ.get('HEROKU_DB_HOST', 'ec2-54-160-133-106.compute-1.amazonaws.com')
+DB_HOST_IP = os.environ.get('HEROKU_DB_HOST_IP', '23.252.62.110')
+DB_PORT = os.environ.get('HEROKU_DB_PORT', 5432)
+DB_NAME = os.environ.get('HEROKU_DB_NAME', 'd1pqoftidlm2sg')
+
+DATABASE_URL = os.environ.get('HEROKU_DB_URL', f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}')
 
 
 class ShowsDB(object):
