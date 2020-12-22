@@ -2,9 +2,7 @@ version: '3.3'
 
 services:
   shows-service:
-    build:
-      context: ./Netflix-Shows
-      dockerfile: ./netflix-shows/Dockerfile
+    build: ./netflix-shows
     volumes:
       - ./netflix-shows:/usr/src/app
     ports:

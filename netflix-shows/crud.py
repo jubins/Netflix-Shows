@@ -1,5 +1,5 @@
 from sqlalchemy import Table, text
-from database import ShowsDB
+from . database import ShowsDB
 from datetime import datetime
 
 
@@ -17,10 +17,14 @@ class CRUDShowsDB(object):
         results = self.db.execute(query, get='one')
         return results
 
-    def modify_show(self, show_id, type):
+    def modify_show(self, show_id, show):
         show_exists = self.search_show_by_id(show_id)
         if show_exists:
-            query = self.table.update().where(self.table.columns.show_id == show_id).values(type=type)
+            query = self.table.update().where(self.table.columns.show_id == show_id).values(type=show.type, title=show.title,
+                                                                                            director=show.director, cast=show.cast, country=show.country,
+                                                                                            date_added=show.date_added,
+                                                                                            release_year=show.release_year, rating=show.rating, duration=show.duration,
+                                                                                            listed_in=show.listed_in, description=show.description)
             results = self.db.execute(query, get='one')
             return results
 
@@ -54,30 +58,30 @@ class CRUDShowsDB(object):
         except Exception as e:
             return False
 
-    def filter_show_by_date_added(self, start_date=None, end_date=None, limit=10, offset=0):
+    def filter_show_by_date_added(self, start_date=None, end_date=None, order_by_col='date_added', limit=10, offset=0):
         if not start_date and not end_date:
             return list()
         elif start_date and not end_date:
             start_date = self.valid_date_format(start_date)
             query = self.table.select().where(self.table.columns.date_added >= start_date,
-                                              ).limit(limit).offset(offset)
+                                              ).order_by(order_by_col).limit(limit).offset(offset)
         elif not start_date and end_date:
             end_date = self.valid_date_format(end_date)
-            query = self.table.select().where(self.table.columns.date_added <= end_date).limit(limit).offset(offset)
+            query = self.table.select().where(self.table.columns.date_added <= end_date).order_by(order_by_col).limit(limit).offset(offset)
         else:
             start_date = self.valid_date_format(start_date)
             end_date = self.valid_date_format(end_date)
             query = self.table.select().where(self.table.columns.date_added >= start_date)\
-                .where(self.table.columns.date_added <= end_date).limit(limit).offset(offset)
+                .where(self.table.columns.date_added <= end_date).order_by(order_by_col).limit(limit).offset(offset)
         results = self.db.execute(query, get='all')
         return results
 
-    def filter_show_by_release_year(self, year, limit=10, offset=0):
-        query = self.table.select().where(self.table.columns.release_year == year).limit(limit).offset(offset)
+    def filter_show_by_release_year(self, year, order_by_col='date_added', limit=10, offset=0):
+        query = self.table.select().where(self.table.columns.release_year == year).order_by(order_by_col).limit(limit).offset(offset)
         results = self.db.execute(query, get='all')
         return results
 
-    def filter_show_by_country(self, country, limit=10, offset=0):
-        query = self.table.select().where(self.table.columns.country.like(f'%{country}%')).limit(limit).offset(offset)
+    def filter_show_by_country(self, country, limit=10, order_by_col='date_added', offset=0):
+        query = self.table.select().where(self.table.columns.country.like(f'%{country}%')).order_by(order_by_col).limit(limit).offset(offset)
         results = self.db.execute(query, get='all')
         return results
