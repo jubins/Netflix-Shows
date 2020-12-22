@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from . import models, database, crud
 import uvicorn
 
@@ -32,9 +33,28 @@ async def shutdown():
 # Endpoints
 
 # Index Endpoint
-@app.get('/')
+@app.get('/', response_class=HTMLResponse)
 def index():
-    return {'message': 'Welcome to the Shows API. Go to /docs to see full list of available endpoints.'}
+    return """
+    <html>
+        <head>
+            <title>Welcome to the Shows API</title>
+        </head>
+        <body>
+            <h1>Welcome to the Shows API!</h1>
+            <p>
+                Shows API allows you to search, sort and filter your favorite Movies and TV Shows. It's built on top of powerful Python Fast framework.
+            </p>
+            <p>
+                Go to <a href="https://netflix-shows-api.herokuapp.com/docs">docs</a> or <a href="https://netflix-shows-api.herokuapp.com/redoc">redoc</a> to explore full list of available endpoints.
+            </p>
+            <p>
+                Built by <a href="mailto:jubinsoni27@gmail.com">Jubin Soni</a>.
+            </p>
+        </body>
+    </html>
+    """
+
 
 
 # Search Endpoints
@@ -48,12 +68,14 @@ async def search_shows_by_show_id(show_id: int):
 
 
 @app.get('/api/searchShows/by/{title_or_description}', response_model=models.ShowsSearch, status_code=200)
-async def search_shows_by_show_title_or_description(title_or_description: str, text: str, limit: int = 10, offset: int = 0):
+async def search_shows_by_show_title_or_description(title_or_description: str, text: str, sort_by: str = 'date_added', limit: int = 10, offset: int = 0):
+    if sort_by not in {'date_added', 'release_year', 'duration', 'listed_in'}:
+        raise HTTPException(status_code=400, detail='Bad request: "sort_by" must be one of ["date_added", "release_year", "duration", "listed_in"] columns.')
     if title_or_description == 'title':
-        show = await shows_crud.search_show_by_title(text, limit, offset)
+        show = await shows_crud.search_show_by_title(text, sort_by, limit, offset)
         response = {'data': show, 'length': len(show)}
     elif title_or_description == 'description':
-        show = await shows_crud.search_show_by_description(text, limit, offset)
+        show = await shows_crud.search_show_by_description(text, sort_by, limit, offset)
         response = {'data': show, 'length': len(show)}
     else:
         raise HTTPException(status_code=400, detail='Bad request: {title_or_description} must be one of ["title", "description"] columns.')
@@ -64,14 +86,16 @@ async def search_shows_by_show_title_or_description(title_or_description: str, t
 
 # Filter Endpoints
 @app.get('/api/filterShows/by/dateAdded', response_model=models.ShowsSearch, status_code=200)
-async def filter_shows_by_date_added(start_date: str = None, end_date: str = None, limit: int = 10, offset: int = 0):
+async def filter_shows_by_date_added(start_date: str = None, end_date: str = None, sort_by: str = 'date_added', limit: int = 10, offset: int = 0):
+    if sort_by not in {'date_added', 'release_year', 'duration', 'listed_in'}:
+        raise HTTPException(status_code=400, detail='Bad request: "sort_by" must be one of ["date_added", "release_year", "duration", "listed_in"] columns.')
     if not start_date and not end_date:
         raise HTTPException(status_code=400, detail='Bad request: "start_date" or "end_date" is required.')
     if start_date and not shows_crud.valid_date_format(start_date):
         raise HTTPException(status_code=400, detail='Bad request: Specify "start_date" in "YYYY-MM-DD" format.')
     if end_date and not shows_crud.valid_date_format(end_date):
         raise HTTPException(status_code=400, detail='Bad request: Specify "start_date" in "YYYY-MM-DD" format.')
-    show = await shows_crud.filter_show_by_date_added(start_date, end_date, limit, offset)
+    show = await shows_crud.filter_show_by_date_added(start_date, end_date, sort_by, limit, offset)
     response = {'data': show, 'length': len(show)}
     if not show:
         raise HTTPException(status_code=404, detail='No matching results found')
@@ -79,8 +103,10 @@ async def filter_shows_by_date_added(start_date: str = None, end_date: str = Non
 
 
 @app.get('/api/filterShows/by/releaseYear', response_model=models.ShowsSearch, status_code=200)
-async def filter_shows_by_release_year(year: int, limit: int = 10, offset: int = 0):
-    show = await shows_crud.filter_show_by_release_year(year, limit, offset)
+async def filter_shows_by_release_year(year: int, sort_by: str = 'date_added', limit: int = 10, offset: int = 0):
+    if sort_by not in {'date_added', 'release_year', 'duration', 'listed_in'}:
+        raise HTTPException(status_code=400, detail='Bad request: "sort_by" must be one of ["date_added", "release_year", "duration", "listed_in"] columns.')
+    show = await shows_crud.filter_show_by_release_year(year, sort_by, limit, offset)
     response = {'data': show, 'length': len(show)}
     if not show:
         raise HTTPException(status_code=404, detail='No matching results found')
@@ -88,8 +114,10 @@ async def filter_shows_by_release_year(year: int, limit: int = 10, offset: int =
 
 
 @app.get('/api/filterShows/by/country', response_model=models.ShowsSearch, status_code=200)
-async def filter_show_by_country(country: str, limit: int = 10, offset: int = 0):
-    show = await shows_crud.filter_show_by_country(country, limit, offset)
+async def filter_show_by_country(country: str, sort_by: str = 'date_added', limit: int = 10, offset: int = 0):
+    if sort_by not in {'date_added', 'release_year', 'duration', 'listed_in'}:
+        raise HTTPException(status_code=400, detail='Bad request: "sort_by" must be one of ["date_added", "release_year", "duration", "listed_in"] columns.')
+    show = await shows_crud.filter_show_by_country(country, sort_by, limit, offset)
     response = {'data': show, 'length': len(show)}
     if not show:
         raise HTTPException(status_code=404, detail='No matching results found')
@@ -107,12 +135,12 @@ async def create_a_new_show(show: models.Shows):
 
 
 # PUT Endpoint to modify data
-@app.put('/api/modifyShowTypeById/{show_id}', status_code=204)
-async def modify_an_existing_show(show_id: int, type: str):
+@app.put('/api/modifyShow/{show_id}', status_code=204)
+async def modify_an_existing_show(show_id: int, shows: models.ShowModify):
     show = await shows_crud.search_show_by_id(show_id)
     if not show:
         raise HTTPException(status_code=404, detail=f'show_id: {show_id} not found')
-    await shows_crud.modify_show(show_id, type)
+    await shows_crud.modify_show(show_id, shows)
     return {"message": f"show_id: {show_id} modified."}
 
 
