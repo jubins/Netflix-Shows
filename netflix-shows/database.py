@@ -1,16 +1,15 @@
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Date
 from databases import Database
-from configparser import ConfigParser
+import os
 
-config = ConfigParser()
-config.read('./config.ini')
+# DB_USER = os.environ.get('LOCAL_DB_USER')
+# DB_PASSWORD = os.environ.get('LOCAL_DB_PASWORD')
+# DB_HOST = os.environ.get('LOCAL_DB_HOST')
+# DB_PORT = os.environ.get('LOCAL_DB_PORT')
+# DB_NAME = os.environ.get('LOCAL_DB_NAME')
+# DATABASE_URL = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
-DB_USER = config['database'].get('user')
-DB_PASSWORD = config['database'].get('password')
-DB_HOST = config['database'].get('host')
-DB_PORT = config['database'].getint('port')
-DB_NAME = config['database'].get('name')
-DATABASE_URL = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+DATABASE_URL = os.environ.get('HEROKU_DB_URL')
 
 
 class ShowsDB(object):
