@@ -1,8 +1,8 @@
 from requests import request
 import unittest
 
-# BASE_URL = "http://localhost:9001"
-BASE_URL = 'https://netflix-shows-api.herokuapp.com'
+BASE_URL = "http://localhost:9001"
+# BASE_URL = 'https://netflix-shows-api.herokuapp.com'
 
 
 class TestShowsAPI(unittest.TestCase):
@@ -54,7 +54,7 @@ class TestShowsAPI(unittest.TestCase):
         }
         self.assertEqual(response.json(), expected)
 
-    def test_filter_by_date(self):
+    def test_filter_by_date_and_sorting(self):
         response = request(method='GET', url=f"{BASE_URL}/api/filterShows/by/dateAdded?start_date=2019-09-20&end_date=2019-10-12&sort_by=listed_in&limit=100&offset=0")
         self.assertEqual(response.status_code, 200)
         expected = 1
