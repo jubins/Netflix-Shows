@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 import models, database, crud
 import uvicorn
 
@@ -32,9 +33,28 @@ async def shutdown():
 # Endpoints
 
 # Index Endpoint
-@app.get('/')
+@app.get('/', response_class=HTMLResponse)
 def index():
-    return {'message': 'Welcome to the Shows API. Go to https://netflix-shows-api.herokuapp.com/docs to see full list of available endpoints.'}
+    return """
+    <html>
+        <head>
+            <title>Welcome to the Shows API</title>
+        </head>
+        <body>
+            <h1>Welcome to the Shows API!</h1>
+            <p>
+                Shows API allows you to search, sort and filter your favorite Movies and TV Shows. It's built on top of powerful Python Fast framework.
+            </p>
+            <p>
+                Go to <a href="http://localhost:9001/docs">docs</a> or <a href="http://localhost:9001/redoc">redoc</a> to explore full list of available endpoints.
+            </p>
+            <p>
+                Built by <a href="mailto:jubinsoni27@gmail.com">Jubin Soni</a>.
+            </p>
+        </body>
+    </html>
+    """
+
 
 
 # Search Endpoints
