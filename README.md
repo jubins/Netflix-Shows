@@ -1,5 +1,5 @@
 # [Shows API](https://netflix-shows-api.herokuapp.com/)
-#### Welcome to the Shows API. Search, sort and filter your favorite Movies and TV Shows. Go to https://netflix-shows-api.herokuapp.com/docs/docs to see full list of available endpoints.
+#### Welcome to the Shows API. Search, sort and filter your favorite Movies and TV Shows. Go to https://netflix-shows-api.herokuapp.com/docs/ to see full list of available endpoints.
 
 ## API Usage Examples
 - Search: Search shows that contain `Music` in the title
