@@ -1,13 +1,12 @@
 from requests import request
-from configparser import ConfigParser
 from csv import DictReader
 from datetime import datetime
-
-config = ConfigParser()
-config.read('./config.ini')
+import os
 
 # BASE_URL = 'http://localhost:9001'
 BASE_URL = 'https://netflix-shows-api.herokuapp.com'
+DATA_URL = os.environ.get('DATA_URL', 'https://raw.githubusercontent.com/jubins/Netflix-Shows/dev/netflix-shows/netflix_titles.csv')
+FILE_PATH = os.environ.get('DATA_FILE_PATH', './data/netflix_titles.csv')
 
 
 def convert_to_date(str_date):
@@ -37,6 +36,4 @@ def import_data_from_local(file_path):
     return f"{count_200} rows inserted into the database. Attempted: {total}."
 
 
-DATA_URL = config['data'].get('url')
-FILE_PATH = config['data'].get('file_path')
 import_data_from_local(FILE_PATH)
