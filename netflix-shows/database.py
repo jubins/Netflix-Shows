@@ -1,6 +1,7 @@
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Date
-from databases import Database
 import os
+
+from databases import Database
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Date
 
 # DB_USER = os.environ.get('LOCAL_DB_USER')
 # DB_PASSWORD = os.environ.get('LOCAL_DB_PASSWORD')
@@ -20,7 +21,7 @@ DATABASE_URL = os.environ.get('HEROKU_DB_URL', f'postgresql://{DB_USER}:{DB_PASS
 
 class ShowsDB(object):
     def __init__(self):
-        self.database = Database(url=DATABASE_URL)
+        self.database = Database(url=DATABASE_URL, ssl='require')
         self.metadata = MetaData()
         self.shows = Table(
             'shows',
