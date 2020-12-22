@@ -1,4 +1,4 @@
-from sqlalchemy import Table, text
+from sqlalchemy import Table
 from . database import ShowsDB
 from datetime import datetime
 
