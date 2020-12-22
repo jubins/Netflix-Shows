@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from . import models, database, crud
+import models, database, crud
 import uvicorn
 
 # Create Connection
@@ -34,7 +34,7 @@ async def shutdown():
 # Index Endpoint
 @app.get('/')
 def index():
-    return {'message': 'Welcome to the Shows API. Go to /docs to see full list of available endpoints.'}
+    return {'message': 'Welcome to the Shows API. Go to https://netflix-shows-api.herokuapp.com/docs to see full list of available endpoints.'}
 
 
 # Search Endpoints
@@ -48,12 +48,14 @@ async def search_shows_by_show_id(show_id: int):
 
 
 @app.get('/api/searchShows/by/{title_or_description}', response_model=models.ShowsSearch, status_code=200)
-async def search_shows_by_show_title_or_description(title_or_description: str, text: str, limit: int = 10, offset: int = 0):
+async def search_shows_by_show_title_or_description(title_or_description: str, text: str, order_by: str = 'date_added', limit: int = 10, offset: int = 0):
+    if order_by not in {'date_added', 'release_year'}:
+        raise HTTPException(status_code=400, detail='Bad request: "order_by" must be one of ["date_added", "release_year"] columns.')
     if title_or_description == 'title':
-        show = await shows_crud.search_show_by_title(text, limit, offset)
+        show = await shows_crud.search_show_by_title(text, order_by, limit, offset)
         response = {'data': show, 'length': len(show)}
     elif title_or_description == 'description':
-        show = await shows_crud.search_show_by_description(text, limit, offset)
+        show = await shows_crud.search_show_by_description(text, order_by, limit, offset)
         response = {'data': show, 'length': len(show)}
     else:
         raise HTTPException(status_code=400, detail='Bad request: {title_or_description} must be one of ["title", "description"] columns.')

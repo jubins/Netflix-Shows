@@ -1,5 +1,5 @@
 from sqlalchemy import Table, text
-from . database import ShowsDB
+from database import ShowsDB
 from datetime import datetime
 
 
@@ -36,13 +36,13 @@ class CRUDShowsDB(object):
         results = self.db.execute(query, get='all')
         return results
 
-    def search_show_by_title(self, show_text, limit=10, offset=0):
-        query = self.table.select().where(self.table.columns.title.like(f'%{show_text}%')).limit(limit).offset(offset)
+    def search_show_by_title(self, show_text, order_by_col='date_added', limit=10, offset=0):
+        query = self.table.select().where(self.table.columns.title.like(f'%{show_text}%')).order_by(order_by_col).limit(limit).offset(offset)
         results = self.db.execute(query, get='all')
         return results
 
-    def search_show_by_description(self, show_text, limit=10, offset=0):
-        query = self.table.select().where(self.table.columns.description.like(f'%{show_text}%')).limit(limit).offset(offset)
+    def search_show_by_description(self, show_text, order_by_col='date_added', limit=10, offset=0):
+        query = self.table.select().where(self.table.columns.description.like(f'%{show_text}%')).order_by(order_by_col).limit(limit).offset(offset)
         results = self.db.execute(query, get='all')
         return results
 
