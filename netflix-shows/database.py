@@ -9,7 +9,7 @@ import os
 # DB_NAME = os.environ.get('LOCAL_DB_NAME')
 # DATABASE_URL = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
-DATABASE_URL = os.environ.get('HEROKU_DB_URL')
+DATABASE_URL = os.environ.get('HEROKU_DB_URL', 'postgres://tvxqfktinnbxqi:b07bb0d3847a702cece9a383f089bbc02e772eb9141a2efebcdf37f74ee77d86@ec2-54-160-133-106.compute-1.amazonaws.com:5432/d1pqoftidlm2sg')
 
 
 class ShowsDB(object):

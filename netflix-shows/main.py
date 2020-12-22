@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from . import models, database, crud
+import models, database, crud
 import uvicorn
 
 # Create Connection
@@ -125,5 +125,5 @@ async def delete_an_existing_show(show_id: int):
     await shows_crud.delete_show(show_id)
     return {"message": f"show_id: {show_id} deleted."}
 
-# if __name__ == "__main__":
-#     uvicorn.run(app="main:app", host="0.0.0.0", port=9001, reload=True)
+if __name__ == "__main__":
+    uvicorn.run(app="main:app", host="0.0.0.0", port=9001, reload=True)
