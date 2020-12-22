@@ -4,9 +4,10 @@ from csv import DictReader
 from datetime import datetime
 
 config = ConfigParser()
-config.read('config.ini')
+config.read('./config.ini')
 
-BASE_URL = 'http://localhost:9001'
+# BASE_URL = 'http://localhost:9001'
+BASE_URL = 'https://netflix-shows-api.herokuapp.com'
 
 
 def convert_to_date(str_date):
