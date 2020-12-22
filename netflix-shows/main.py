@@ -1,7 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException, Query
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List, Optional
-import models, database, crud
+from . import models, database, crud
 import uvicorn
 
 # Create Connection

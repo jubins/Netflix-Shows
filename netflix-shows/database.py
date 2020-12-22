@@ -1,21 +1,27 @@
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Date
+import os
+
 from databases import Database
-from configparser import ConfigParser
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Date
 
-config = ConfigParser()
-config.read('config.ini')
+# DB_USER = os.environ.get('LOCAL_DB_USER')
+# DB_PASSWORD = os.environ.get('LOCAL_DB_PASSWORD')
+# DB_HOST = os.environ.get('LOCAL_DB_HOST')
+# DB_PORT = os.environ.get('LOCAL_DB_PORT')
+# DB_NAME = os.environ.get('LOCAL_DB_NAME')
 
-DB_USER = config['database'].get('user')
-DB_PASSWORD = config['database'].get('password')
-DB_HOST = config['database'].get('host')
-DB_PORT = config['database'].getint('port')
-DB_NAME = config['database'].get('name')
-DATABASE_URL = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+DB_USER = os.environ.get('HEROKU_DB_USER', 'tvxqfktinnbxqi')
+DB_PASSWORD = os.environ.get('HEROKU_DB_PASSWORD', 'b07bb0d3847a702cece9a383f089bbc02e772eb9141a2efebcdf37f74ee77d86')
+DB_HOST = os.environ.get('HEROKU_DB_HOST', 'ec2-54-160-133-106.compute-1.amazonaws.com')
+DB_HOST_IP = os.environ.get('HEROKU_DB_HOST_IP', '23.252.62.110')
+DB_PORT = os.environ.get('HEROKU_DB_PORT', 5432)
+DB_NAME = os.environ.get('HEROKU_DB_NAME', 'd1pqoftidlm2sg')
+
+DATABASE_URL = os.environ.get('HEROKU_DB_URL', f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}')
 
 
 class ShowsDB(object):
     def __init__(self):
-        self.database = Database(url=DATABASE_URL)
+        self.database = Database(url=DATABASE_URL, ssl='require', min_size=1, max_size=2)
         self.metadata = MetaData()
         self.shows = Table(
             'shows',

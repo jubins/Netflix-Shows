@@ -4,7 +4,7 @@ from csv import DictReader
 from datetime import datetime
 
 config = ConfigParser()
-config.read('config.ini')
+config.read('./config.ini')
 
 BASE_URL = 'http://localhost:9001'
 

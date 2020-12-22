@@ -1,0 +1,1 @@
+web: uvicorn netflix-shows.main:app --host=0.0.0.0 --port=${PORT:-9001}
