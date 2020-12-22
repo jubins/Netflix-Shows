@@ -21,7 +21,7 @@ DATABASE_URL = os.environ.get('HEROKU_DB_URL', f'postgresql://{DB_USER}:{DB_PASS
 
 class ShowsDB(object):
     def __init__(self):
-        self.database = Database(url=DATABASE_URL, ssl='require')
+        self.database = Database(url=DATABASE_URL, ssl='require', max_size=2)
         self.metadata = MetaData()
         self.shows = Table(
             'shows',
