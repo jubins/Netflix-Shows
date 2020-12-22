@@ -41,7 +41,7 @@ If you get `requests` module import error make sure you install it using below c
    ```
 
 ## Setup
-Follow below steps to setup your environment locally. You can use also clone [`dev`](https://github.com/jubins/Netflix-Shows/tree/dev) branch or clone it for reference as other branches have production related changes and dev branch should work if you have docker running.
+Follow below steps to setup your environment locally. You can use also clone [`dev`](https://github.com/jubins/Netflix-Shows/tree/dev) branch or use it for reference as other branches have production related changes and dev branch should work if you have docker running.
 
 #### [Dependencies](https://github.com/jubins/Netflix-Shows/blob/master/requirements.txt)
 - Python 3
