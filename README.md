@@ -28,7 +28,7 @@
     ```
  
 ## [API Documentation](https://netflix-shows-api.herokuapp.com/docs)
-- Go to `https://netflix-shows-api.herokuapp.com/docs` to view full list of endpoints.
+- Go to [`https://netflix-shows-api.herokuapp.com/docs`](https://netflix-shows-api.herokuapp.com/docs) to view full list of endpoints.
 
 ## [Tests](https://github.com/jubins/Netflix-Shows/blob/master/netflix-shows/unittests.py)
 To run the test cases go to `~/Netflix-Shows/netflix-shows` from your terminal window and type below command. Make sure your Fast API server is running.
