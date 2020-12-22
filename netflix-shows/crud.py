@@ -1,5 +1,5 @@
 from sqlalchemy import Table
-from database import ShowsDB
+from . database import ShowsDB
 from datetime import datetime
 
 

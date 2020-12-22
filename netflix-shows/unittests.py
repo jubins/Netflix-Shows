@@ -1,8 +1,8 @@
 from requests import request
 import unittest
 
-BASE_URL = "http://localhost:9001"
-# BASE_URL = 'https://netflix-shows-api.herokuapp.com'
+# BASE_URL = "http://localhost:9001"
+BASE_URL = 'https://netflix-shows-api.herokuapp.com'
 
 
 class TestShowsAPI(unittest.TestCase):

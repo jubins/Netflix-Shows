@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
-import models, database, crud
+from . import models, database, crud
 import uvicorn
 
 # Create Connection
@@ -46,7 +46,7 @@ def index():
                 Shows API allows you to search, sort and filter your favorite Movies and TV Shows. It's built on top of powerful Python Fast framework.
             </p>
             <p>
-                Go to <a href="http://localhost:9001/docs">docs</a> or <a href="http://localhost:9001/redoc">redoc</a> to explore full list of available endpoints.
+                Go to <a href="https://netflix-shows-api.herokuapp.com/docs">docs</a> or <a href="https://netflix-shows-api.herokuapp.com/redoc">redoc</a> to explore full list of available endpoints.
             </p>
             <p>
                 Built by <a href="mailto:jubinsoni27@gmail.com">Jubin Soni</a>.
